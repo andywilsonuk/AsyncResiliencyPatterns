@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6409EF0C-CEE3-4625-84BE-B504E2A664B4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AsyncResiliencyPatterns</RootNamespace>
+    <AssemblyName>AsyncResiliencyPatterns</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisCulture>
+    </CodeAnalysisCulture>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisCulture>
+    </CodeAnalysisCulture>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>AsyncResiliencyPatterns.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CircuitBreaker\CircuitBreaker.cs" />
+    <Compile Include="CircuitBreaker\CircuitBreakerSettingsExtensions.cs" />
+    <Compile Include="CircuitBreaker\CircuitBreakerStateInternal.cs" />
+    <Compile Include="CircuitBreaker\CircuitBreakerState.cs" />
+    <Compile Include="CircuitBreaker\CircuitBreakerStateChangedEventArgs.cs" />
+    <Compile Include="CircuitBreaker\CircuitBreakerStateMachine.cs" />
+    <Compile Include="CircuitBreaker\CircuitBreakerStateMachineImpl.cs" />
+    <Compile Include="CircuitBreaker\CircuitBreakerStateParameters.cs" />
+    <Compile Include="CircuitBreaker\CircuitBreakerStateTripped.cs" />
+    <Compile Include="CircuitBreaker\CircuitBreakerStateAttempt.cs" />
+    <Compile Include="CircuitBreaker\CircuitBreakerStateNormal.cs" />
+    <Compile Include="CircuitBreaker\CircuitBreakerSettings.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="InnerCommandInvoker.cs" />
+    <Compile Include="ResiliencyCommandInvoker.cs" />
+    <Compile Include="SemaphoreSuperSlim.cs" />
+    <Compile Include="Throttle\Throttle.cs" />
+    <Compile Include="CircuitBreaker\CircuitBreakerTrippedException.cs" />
+    <Compile Include="Throttle\ThrottleLimitException.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="AsyncResiliencyPatterns.snk" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

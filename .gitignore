@@ -1,0 +1,16 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/AsyncResiliencyPatterns/bin/Debug
+/AsyncResiliencyPatterns/obj/Debug
+/AsyncResiliencyPatterns.Packager/lib/net45/AsyncResiliencyPatterns.pdb
+/AsyncResiliencyPatterns.Packager/bin/Debug
+/AsyncResiliencyPatterns.Packager/obj/Debug
+/AsyncResiliencyPatterns.Packager/AsyncResiliencyPatterns.Packager.1.0.0.nupkg
+/AsyncResiliencyPatterns.Packager/AsyncResiliencyPatterns.Packager.1.0.0.symbols.nupkg
+/AsyncResiliencyPatterns.Tests/bin/Debug
+/AsyncResiliencyPatterns.Tests/obj/Debug
+/AsyncResiliencyPatterns.Packager/AsyncResiliencyPatterns.Packager.csproj.user
+/packages
+/AsyncResiliencyPatterns.v12.suo
