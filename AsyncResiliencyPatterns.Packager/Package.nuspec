@@ -7,7 +7,7 @@
     <authors>Andy Wilson</authors>
     <owners>Andy Wilson</owners>
     <description>
-      Provides resiliency components (Throttle, Circuit Breaker) for async calls to external dependencies.
+      Provides resiliency components (Throttle, Circuit Breaker) for async calls to external dependencies (databases calls, http requests/web services calls, IO calls, etc).
     </description>
     <releaseNotes>
       2.0.0
