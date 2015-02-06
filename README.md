@@ -9,7 +9,7 @@ The Circuit Breaker pattern ensures that if an external dependency starts to fai
 
 For more information on the Circuit Breaker pattern see this Netflix article http://techblog.netflix.com/2011/12/making-netflix-api-more-resilient.html
 
-The implementation of the patterns allow for easy creation of ASP.Net MVC or WebAPI action filters (see Example 4).
+The pattern implementation allows for easy creation of ASP.Net MVC or WebAPI action filters (see Example 4).
 
 Include the using statement so that the classes are available:
 ```C#
