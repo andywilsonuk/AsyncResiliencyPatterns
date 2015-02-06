@@ -9,17 +9,30 @@ namespace AsyncResiliencyPatterns
     /// <summary>
     /// Represents a circuit that has recently failure but is in a retry state.
     /// </summary>
-    public class CircuitBreakerStateAttempt : CircuitBreakerStateInternal, CircuitBreakerState
+    public class CircuitBreakerStateAttempt : CircuitBreakerStateInternal, CircuitBreakerState, CircuitBreakerShortCircuitableState
     {
         private CircuitBreakerStateParameters parameters;
+        private SemaphoreSuperSlim semaphore;
 
         internal CircuitBreakerStateAttempt(CircuitBreakerStateParameters parameters)
         {
             this.parameters = parameters;
+            this.semaphore = new SemaphoreSuperSlim(1);
         }
+
+        /// <summary>
+        /// Occurs when the tripped circuit forces a short (i.e. immediately fails the command).
+        /// </summary>
+        public event EventHandler ShortCircuited;
 
         public async Task<T> ExecuteAsync<T>(Func<Task<T>> task)
         {
+            if (!this.semaphore.Acquire())
+            {
+                this.OnShortCircuited();
+                throw new CircuitBreakerTrippedException();
+            }
+
             T result;
             try
             {
@@ -33,6 +46,11 @@ namespace AsyncResiliencyPatterns
             }
 
             return result;
+        }
+
+        private void OnShortCircuited()
+        {
+            if (this.ShortCircuited != null) this.ShortCircuited(this, new EventArgs());
         }
 
         public void TransitionToAttempt()

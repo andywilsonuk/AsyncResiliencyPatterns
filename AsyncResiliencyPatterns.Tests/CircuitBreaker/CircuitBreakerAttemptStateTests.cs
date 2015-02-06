@@ -100,5 +100,64 @@ namespace AsyncResiliencyPatterns.Tests
             this.stateMachine.VerifySet(m => m.State = It.IsAny<CircuitBreakerStateInternal>(), Times.Never());
             throw task.Exception.InnerException;
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(CircuitBreakerTrippedException))]
+        public void SecondAttemptTripped()
+        {
+            var state = new CircuitBreakerStateAttempt(this.parameters);
+            this.stateMachine.SetupProperty(m => m.State, state);
+
+            Task t1 = state.ExecuteAsync<bool>(async () =>
+            {
+                await Task.Delay(TimeSpan.FromSeconds(10));
+                return true;
+            });
+
+            Task t2 = state.ExecuteAsync<bool>(async () =>
+            {
+                await Task.Delay(TimeSpan.FromMilliseconds(1));
+                return true;
+            });
+
+            Assert.IsTrue(t2.IsFaulted);
+            Assert.IsNotNull(t2.Exception);
+            Assert.IsNotNull(t2.Exception.InnerException);
+            throw t2.Exception.InnerException;
+        }
+
+        [TestMethod]
+        public void AttemptTrippedExecuteEventFired()
+        {
+            var state = new CircuitBreakerStateAttempt(this.parameters);
+            this.stateMachine.SetupProperty(m => m.State, state);
+            bool wasEventFired = false;
+            state.ShortCircuited += delegate(object sender, EventArgs e)
+            {
+                wasEventFired = true;
+            };
+
+            Task t1 = state.ExecuteAsync<bool>(async () =>
+            {
+                await Task.Delay(TimeSpan.FromSeconds(10));
+                return true;
+            });
+
+            try
+            {
+                Task task = state.ExecuteAsync<bool>(async () =>
+                {
+                    await Task.Delay(TimeSpan.FromMilliseconds(1));
+                    return true;
+                });
+                task.Wait();
+            }
+            catch (AggregateException ex)
+            {
+                Assert.IsInstanceOfType(ex.InnerException, typeof(CircuitBreakerTrippedException));
+            }
+
+            Assert.IsTrue(wasEventFired);
+        }
     }
 }

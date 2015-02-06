@@ -10,7 +10,7 @@ namespace AsyncResiliencyPatterns
     /// <summary>
     /// Represents a circuit that is unavailable (tripped).
     /// </summary>
-    public sealed class CircuitBreakerStateTripped : CircuitBreakerStateInternal, CircuitBreakerState, IDisposable
+    public sealed class CircuitBreakerStateTripped : CircuitBreakerStateInternal, CircuitBreakerState, CircuitBreakerShortCircuitableState, IDisposable
     {
         private static readonly TimeSpan infinity = TimeSpan.FromMilliseconds(-1);
         private Timer resetTimer;

@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="CircuitBreaker\CircuitBreaker.cs" />
     <Compile Include="CircuitBreaker\CircuitBreakerSettingsExtensions.cs" />
+    <Compile Include="CircuitBreaker\CircuitBreakerShortCircuitableState.cs" />
     <Compile Include="CircuitBreaker\CircuitBreakerStateInternal.cs" />
     <Compile Include="CircuitBreaker\CircuitBreakerState.cs" />
     <Compile Include="CircuitBreaker\CircuitBreakerStateChangedEventArgs.cs" />
