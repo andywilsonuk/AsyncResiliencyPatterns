@@ -18,7 +18,7 @@ namespace AsyncResiliencyPatterns.Examples
         {
             CircuitBreakerSettings settings = new CircuitBreakerSettings
             {
-                FailureThreshold = 10,
+                FailureThreshold = 1,
                 FailureExpiryPeriod = TimeSpan.FromSeconds(30),
                 TripWaitPeriod = TimeSpan.FromMinutes(1),
             };

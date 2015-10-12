@@ -2,15 +2,16 @@
 <package >
   <metadata>
     <id>AsyncResiliencyPatterns</id>
-    <version>2.0.0</version>
+    <version>2.0.1</version>
     <title>Async Resiliency Patterns</title>
     <authors>Andy Wilson</authors>
     <owners>Andy Wilson</owners>
     <description>
       Provides resiliency components (Throttle, Circuit Breaker) for async calls to external dependencies (databases calls, http requests/web services calls, IO calls, etc).
     </description>
-    <releaseNotes>
-      2.0.0
+    <releaseNotes>2.0.1
+      - Bug fix for Circuit Breaker initialisation
+2.0.0
       - Initial NuGet version.
     </releaseNotes>
     <language>en-GB</language>

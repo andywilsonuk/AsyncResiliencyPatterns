@@ -30,8 +30,14 @@ namespace AsyncResiliencyPatterns
         /// <param name="nestedInvoker">The invoker to pass the command onto.</param>
         public CircuitBreaker(CircuitBreakerSettings settings, ResiliencyCommandInvoker nestedInvoker)
         {
-            var parameters = new CircuitBreakerStateParameters(this.stateMachine, settings, nestedInvoker);
+            if (settings == null) settings = new CircuitBreakerSettings();
+            var parameters = new CircuitBreakerStateParameters
+            {
+                settings = settings,
+                invoker = nestedInvoker
+            };
             this.stateMachine = new CircuitBreakerStateMachineImpl(new CircuitBreakerNormalState(parameters));
+            parameters.stateMachine = this.stateMachine;
             this.AttachToStateChangeEvent();
         }
 

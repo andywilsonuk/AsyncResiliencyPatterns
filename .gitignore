@@ -14,3 +14,10 @@
 /AsyncResiliencyPatterns.Packager/AsyncResiliencyPatterns.Packager.csproj.user
 /packages
 /AsyncResiliencyPatterns.v12.suo
+/AsyncResiliencyPatterns/bin/Release
+/AsyncResiliencyPatterns/obj/Release
+/AsyncResiliencyPatterns.Examples/obj
+/AsyncResiliencyPatterns.IntegrationTests/bin/Debug
+/AsyncResiliencyPatterns.IntegrationTests/obj
+/AsyncResiliencyPatterns.Tests/obj/Release
+/AsyncResiliencyPatterns.Packager/obj/Release
