@@ -32,8 +32,13 @@ namespace AsyncResiliencyPatterns.Tests
         [TestMethod]
         public void StateChangedNotification()
         {
-            var parameters = new CircuitBreakerStateParameters(this.stateMachine, new CircuitBreakerSettings(), new InnerCommandInvoker());
-            var newState = new CircuitBreakerNormalState(parameters);
+            var parameters = new CircuitBreakerStateParameters
+            {
+                stateMachine = this.stateMachine,
+                settings = new CircuitBreakerSettings(),
+                invoker = new InnerCommandInvoker()
+            };
+            var newState = new CircuitBreakerStateNormal(parameters);
             bool wasCalled = false;
             this.stateMachine.StateChanged += (sender, e) =>
             {

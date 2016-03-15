@@ -77,9 +77,9 @@
     <Compile Include="ThrottleTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CircuitBreaker\CircuitBreakerTests.cs" />
-    <Compile Include="CircuitBreaker\CircuitBreakerNormalStateTests.cs" />
-    <Compile Include="CircuitBreaker\CircuitBreakerAttemptStateTests.cs" />
-    <Compile Include="CircuitBreaker\CircuitBreakerTrippedStateTests.cs" />
+    <Compile Include="CircuitBreaker\CircuitBreakerStateNormalTests.cs" />
+    <Compile Include="CircuitBreaker\CircuitBreakerStateAttemptTests.cs" />
+    <Compile Include="CircuitBreaker\CircuitBreakerStateTrippedTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AsyncResiliencyPatterns\AsyncResiliencyPatterns.csproj">

@@ -10,14 +10,14 @@ namespace AsyncResiliencyPatterns
     /// <summary>
     /// Represents a circuit that is functioning normally.
     /// </summary>
-    public sealed class CircuitBreakerNormalState : CircuitBreakerStateInternal, CircuitBreakerState, IDisposable
+    public sealed class CircuitBreakerStateNormal : CircuitBreakerStateInternal, CircuitBreakerState, IDisposable
     {
         private static readonly TimeSpan infinity = TimeSpan.FromMilliseconds(-1);
         private Timer resetTimer;
         private int failureCount = 0;
         private CircuitBreakerStateParameters parameters;
 
-        internal CircuitBreakerNormalState(CircuitBreakerStateParameters parameters)
+        internal CircuitBreakerStateNormal(CircuitBreakerStateParameters parameters)
         {
             this.parameters = parameters;
             this.InitialiseResetTimer();

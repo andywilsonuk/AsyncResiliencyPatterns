@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="WebApiFilterCircuitBreaker.cs" />
     <Compile Include="WebServiceThrottleCircuitBreaker.cs" />
     <Compile Include="FileCircuitBreaker.cs" />

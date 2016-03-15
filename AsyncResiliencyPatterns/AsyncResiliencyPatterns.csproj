@@ -22,7 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
     <CodeAnalysisCulture>
     </CodeAnalysisCulture>
   </PropertyGroup>
@@ -67,7 +67,6 @@
     <Compile Include="CircuitBreaker\CircuitBreakerStateAttempt.cs" />
     <Compile Include="CircuitBreaker\CircuitBreakerStateNormal.cs" />
     <Compile Include="CircuitBreaker\CircuitBreakerSettings.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="InnerCommandInvoker.cs" />
     <Compile Include="ResiliencyCommandInvoker.cs" />

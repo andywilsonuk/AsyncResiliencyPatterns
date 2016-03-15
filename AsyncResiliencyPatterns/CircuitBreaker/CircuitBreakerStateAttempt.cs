@@ -59,7 +59,7 @@ namespace AsyncResiliencyPatterns
 
         public void TransitionToNormal()
         {
-            this.parameters.stateMachine.State = new CircuitBreakerNormalState(this.parameters);
+            this.parameters.stateMachine.State = new CircuitBreakerStateNormal(this.parameters);
         }
 
         public void TransitionToTripped()

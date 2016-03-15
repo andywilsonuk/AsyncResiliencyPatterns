@@ -7,7 +7,7 @@ using System.Threading;
 namespace AsyncResiliencyPatterns.Tests
 {
     [TestClass]
-    public class CircuitBreakerTrippedStateTests
+    public class CircuitBreakerStateTrippedTests
     {
         private Mock<CircuitBreakerStateMachine> stateMachine;
         private CircuitBreakerSettings settings;
@@ -20,7 +20,12 @@ namespace AsyncResiliencyPatterns.Tests
             this.stateMachine = new Mock<CircuitBreakerStateMachine>();
             this.settings = new CircuitBreakerSettings();
             this.invoker = new InnerCommandInvoker();
-            this.parameters = new CircuitBreakerStateParameters(this.stateMachine.Object, this.settings, this.invoker);
+            this.parameters = new CircuitBreakerStateParameters
+            {
+                stateMachine = this.stateMachine.Object,
+                settings = this.settings,
+                invoker = this.invoker
+            };
         }
 
         [TestMethod]

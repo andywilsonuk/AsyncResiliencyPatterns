@@ -7,7 +7,7 @@ using System.Threading;
 namespace AsyncResiliencyPatterns.Tests
 {
     [TestClass]
-    public class CircuitBreakerNormalStateTests
+    public class CircuitBreakerStateNormalTests
     {
         private Mock<CircuitBreakerStateMachine> stateMachine;
         private CircuitBreakerSettings settings;
@@ -20,13 +20,18 @@ namespace AsyncResiliencyPatterns.Tests
             this.stateMachine = new Mock<CircuitBreakerStateMachine>();
             this.settings = new CircuitBreakerSettings();
             this.invoker = new InnerCommandInvoker();
-            this.parameters = new CircuitBreakerStateParameters(this.stateMachine.Object, this.settings, this.invoker);
+            this.parameters = new CircuitBreakerStateParameters
+            {
+                stateMachine = this.stateMachine.Object,
+                settings = this.settings,
+                invoker = this.invoker
+            };
         }
 
         [TestMethod]
         public void Normal()
         {
-            var state = new CircuitBreakerNormalState(this.parameters);
+            var state = new CircuitBreakerStateNormal(this.parameters);
             this.stateMachine.SetupProperty(m => m.State, state);
             int counter = 0;
 
@@ -46,7 +51,7 @@ namespace AsyncResiliencyPatterns.Tests
         [TestMethod]
         public void NormalFailNoTrip()
         {
-            var state = new CircuitBreakerNormalState(this.parameters);
+            var state = new CircuitBreakerStateNormal(this.parameters);
             this.stateMachine.SetupProperty(m => m.State, state);
 
             Task task = state.ExecuteAsync<bool>(() =>
@@ -65,8 +70,13 @@ namespace AsyncResiliencyPatterns.Tests
         public void NestedInvoker()
         {
             PassThroughInvoker passThrough = new PassThroughInvoker();
-            this.parameters = new CircuitBreakerStateParameters(this.parameters.stateMachine, this.parameters.settings, passThrough);
-            var state = new CircuitBreakerNormalState(this.parameters);
+            this.parameters = new CircuitBreakerStateParameters
+            {
+                stateMachine = this.parameters.stateMachine,
+                settings = this.parameters.settings,
+                invoker = passThrough
+            };
+            var state = new CircuitBreakerStateNormal(this.parameters);
             this.stateMachine.SetupProperty(m => m.State, state);
 
             int counter = 0;
@@ -88,7 +98,7 @@ namespace AsyncResiliencyPatterns.Tests
         public void NormalToTripped()
         {
             this.settings.FailureThreshold = 1;
-            var state = new CircuitBreakerNormalState(this.parameters);
+            var state = new CircuitBreakerStateNormal(this.parameters);
             this.stateMachine.SetupProperty(m => m.State, state);
 
             Task task = state.ExecuteAsync<bool>(() =>
@@ -107,7 +117,7 @@ namespace AsyncResiliencyPatterns.Tests
         public void NormalToTrippedMultiple()
         {
             this.settings.FailureThreshold = 2;
-            var state = new CircuitBreakerNormalState(this.parameters);
+            var state = new CircuitBreakerStateNormal(this.parameters);
             this.stateMachine.SetupProperty(m => m.State, state);
 
             Task t1 = state.ExecuteAsync<bool>(() =>
@@ -126,7 +136,7 @@ namespace AsyncResiliencyPatterns.Tests
         [TestMethod]
         public void NormalFailureReset()
         {
-            var state = new CircuitBreakerNormalState(this.parameters);
+            var state = new CircuitBreakerStateNormal(this.parameters);
             this.stateMachine.SetupProperty(m => m.State, state);
             Task t1 = state.ExecuteAsync<bool>(() =>
             {
@@ -143,7 +153,7 @@ namespace AsyncResiliencyPatterns.Tests
         [TestMethod]
         public void NormalToNormal()
         {
-            var state = new CircuitBreakerNormalState(this.parameters);
+            var state = new CircuitBreakerStateNormal(this.parameters);
             this.stateMachine.SetupProperty(m => m.State, state);
 
             state.TransitionToNormal();
@@ -154,7 +164,7 @@ namespace AsyncResiliencyPatterns.Tests
         [TestMethod]
         public void NormalToAttempt()
         {
-            var state = new CircuitBreakerNormalState(this.parameters);
+            var state = new CircuitBreakerStateNormal(this.parameters);
             this.stateMachine.SetupProperty(m => m.State, state);
 
             state.TransitionToAttempt();
@@ -166,7 +176,7 @@ namespace AsyncResiliencyPatterns.Tests
         public void NormalFailureResetUsingTimer()
         {
             this.settings.FailureExpiryPeriod = TimeSpan.FromMilliseconds(1);
-            var state = new CircuitBreakerNormalState(this.parameters);
+            var state = new CircuitBreakerStateNormal(this.parameters);
             this.stateMachine.SetupProperty(m => m.State, state);
             Task t1 = state.ExecuteAsync<bool>(() =>
             {
@@ -190,7 +200,7 @@ namespace AsyncResiliencyPatterns.Tests
         public void NormalFailExceptionFilter()
         {
             this.settings.ExceptionTypes.Add(typeof(ApplicationException));
-            var state = new CircuitBreakerNormalState(this.parameters);
+            var state = new CircuitBreakerStateNormal(this.parameters);
             this.stateMachine.SetupProperty(m => m.State, state);
 
             Task task = state.ExecuteAsync<bool>(() =>
@@ -205,7 +215,7 @@ namespace AsyncResiliencyPatterns.Tests
         public void NormalFailNoRecordExceptionFilter()
         {
             this.settings.ExceptionTypes.Add(typeof(ArgumentNullException));
-            var state = new CircuitBreakerNormalState(this.parameters);
+            var state = new CircuitBreakerStateNormal(this.parameters);
             this.stateMachine.SetupProperty(m => m.State, state);
 
             Task task = state.ExecuteAsync<bool>(() =>
@@ -220,7 +230,7 @@ namespace AsyncResiliencyPatterns.Tests
         [ExpectedException(typeof(DivideByZeroException))]
         public void StateHasBeenDisposedHoweverFailedRequestComesIn()
         {
-            var state = new CircuitBreakerNormalState(this.parameters);
+            var state = new CircuitBreakerStateNormal(this.parameters);
             this.stateMachine.SetupProperty(m => m.State, state);
             bool exit = false;
 

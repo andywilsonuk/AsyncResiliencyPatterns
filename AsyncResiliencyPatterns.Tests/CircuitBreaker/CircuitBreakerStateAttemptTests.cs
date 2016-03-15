@@ -6,7 +6,7 @@ using Moq;
 namespace AsyncResiliencyPatterns.Tests
 {
     [TestClass]
-    public class CircuitBreakerAttemptStateTests
+    public class CircuitBreakerStateAttemptTests
     {
         private Mock<CircuitBreakerStateMachine> stateMachine;
         private CircuitBreakerSettings settings;
@@ -19,7 +19,12 @@ namespace AsyncResiliencyPatterns.Tests
             this.stateMachine = new Mock<CircuitBreakerStateMachine>();
             this.settings = new CircuitBreakerSettings();
             this.invoker = new InnerCommandInvoker();
-            this.parameters = new CircuitBreakerStateParameters(this.stateMachine.Object, this.settings, this.invoker);
+            this.parameters = new CircuitBreakerStateParameters
+            {
+                stateMachine = this.stateMachine.Object,
+                settings = this.settings,
+                invoker = this.invoker
+            };
         }
 
         [TestMethod]
@@ -53,7 +58,7 @@ namespace AsyncResiliencyPatterns.Tests
             });
             task.Wait();
 
-            this.stateMachine.VerifySet(m => m.State = It.IsAny<CircuitBreakerNormalState>(), Times.Once());
+            this.stateMachine.VerifySet(m => m.State = It.IsAny<CircuitBreakerStateNormal>(), Times.Once());
         }
 
         [TestMethod]

@@ -36,7 +36,7 @@ namespace AsyncResiliencyPatterns
                 settings = settings,
                 invoker = nestedInvoker
             };
-            this.stateMachine = new CircuitBreakerStateMachineImpl(new CircuitBreakerNormalState(parameters));
+            this.stateMachine = new CircuitBreakerStateMachineImpl(new CircuitBreakerStateNormal(parameters));
             parameters.stateMachine = this.stateMachine;
             this.AttachToStateChangeEvent();
         }
