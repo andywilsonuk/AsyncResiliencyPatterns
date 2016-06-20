@@ -5,7 +5,7 @@ Available on NuGet at https://www.nuget.org/packages/AsyncResiliencyPatterns/
 
 The Throttle pattern ensures that an external dependency is not flooded with more concurrent requests than it is expected to cope with.
 
-The Circuit Breaker pattern ensures that if an external dependency starts to fail, it isn't continued to be hammer by more new requests. The circuit is configured with a level of failure tolerance within a specified time frame and if breached the circuit is 'tripped' and no further requests are send. After an amount of time, an attempt is made and if successful then 'normal' behaviour is resumed and all future requests are sent to the external dependency.
+The Circuit Breaker pattern ensures that if an external dependency starts to fail, it isn't continued to be hammered by more new requests. The circuit is configured with a level of failure tolerance within a specified time frame and if breached the circuit is 'tripped' and no further requests are send. After an amount of time, an attempt is made and if successful then 'normal' behaviour is resumed and all future requests are sent to the external dependency.
 
 For more information on the Circuit Breaker pattern see this Netflix article http://techblog.netflix.com/2011/12/making-netflix-api-more-resilient.html
 
