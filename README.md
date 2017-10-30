@@ -1,7 +1,9 @@
-#AsyncResiliencyPatterns
+# AsyncResiliencyPatterns
 Provides resiliency components (Throttle, Circuit Breaker) for async calls to external dependencies (databases calls, http requests/web services calls, IO calls, etc).
 
-Available on NuGet at https://www.nuget.org/packages/AsyncResiliencyPatterns/
+**This library is now deprecated as I have found [Polly](https://github.com/App-vNext/Polly) to be a better supported library which has more features. It also has a .net standard implementation.**
+
+---
 
 The Throttle pattern ensures that an external dependency is not flooded with more concurrent requests than it is expected to cope with.
 
